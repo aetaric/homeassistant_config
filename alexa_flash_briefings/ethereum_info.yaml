@@ -1,0 +1,3 @@
+- title: Ethereum info
+  text: >
+    Ethereum is currently valued at {{ states("sensor.ethereum") }} of which you have {{ states("sensor.ethereum_balance") | round(5) }} Ethereum.

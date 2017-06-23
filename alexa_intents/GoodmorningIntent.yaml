@@ -1,0 +1,35 @@
+action:
+  service: input_boolean.turn_off
+  data:
+    entity_id: input_boolean.night_mode
+speech:
+  type: plaintext
+  text: >
+    {%- if now().strftime('%H') | int < 12 and now().strftime('%H') | int > 6 -%}
+      Good morning!
+    {%- else -%}
+      It's not morning, silly!
+    {%- endif -%}
+
+    It is {{ states("sensor.time") }} on {{ states("sensor.date") }}.
+
+    {%- if states("binary_sensor.workday_sensor") == "on" -%}
+      You have work today. You should be at your desk at or before 9AM.
+    {%- else -%}
+      You do not have work today. Enjoy your day off.
+    {%- endif -%}
+
+    There are {{ states("sensor.sonarr_upcoming") }} shows airing today and {{ states("sensor.radarr_upcoming") }} movies being released today.
+    Ethereum is currently valued at ${{ states("sensor.ethereum") }} of which you have {{ states("sensor.ethereum_balance") | round(5) }} Ethereum.
+    You have
+    {%- if states("sensor.usps_mail") | int == 0 -%}
+      0
+    {%- else -%}
+      some
+    {%- endif -%}
+     mail and {{ states("sensor.ups") | int + states("sensor.usps_packages") | int }} packages coming today.
+
+card:
+  type: simple
+  title: Night Mode
+  content: Night Mode disabled

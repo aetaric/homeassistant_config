@@ -1,0 +1,3 @@
+- platform: sesame
+  email: !secret sesame_email
+  password: !secret sesame_password

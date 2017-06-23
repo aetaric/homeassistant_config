@@ -1,0 +1,9 @@
+- name: html5_notifications
+  platform: html5
+  gcm_api_key: !secret gcm_api_key
+  gcm_sender_id: !secret gcm_sender_id
+- name: ios_notifications
+  platform: group
+  services:
+    - service: personal_phone
+    - service: dustins_work_iphone

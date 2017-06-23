@@ -1,0 +1,87 @@
+- platform: wunderground
+  api_key: !secret wunderground_api
+  monitored_conditions:
+    - alerts
+    - dewpoint_f
+    - feelslike_f
+    - heat_index_f
+    - precip_1hr_in
+    - precip_today_in
+    - pressure_mb
+    - pressure_trend
+    - relative_humidity
+    - temp_f
+    - visibility_mi
+    - weather
+    - wind_degrees
+    - wind_dir
+    - wind_gust_mph
+    - wind_mph
+    - wind_string
+    - weather_1d
+    - weather_1n
+    - weather_2d
+    - weather_2n
+    - weather_3d
+    - weather_3n
+    - weather_4d
+    - weather_4n
+    - temp_high_record_f
+    - temp_high_1d_f
+    - temp_low_1d_f
+    - temp_low_record_f
+    - precip_1d
+    - precip_1d_in
+    - wind_mph
+    - wind_1d_mph
+- platform: usps
+  username: aetaric
+  password: !secret usps_password
+- platform: ups
+  username: aetaric
+  password: !secret ups_password
+- platform: haveibeenpwned
+  email:
+    - !secret personal_email
+    - !secret game_email
+    - !secret domain_email
+- platform: sabnzbd
+  host: !secret sabnzbd_ip
+  port: 1025
+  api_key: !secret sabnzbd_api_key
+  monitored_variables:
+    - current_status
+    - speed
+    - queue_size
+    - queue_remaining
+    - disk_size
+    - disk_free
+- platform: sonarr
+  api_key: !secret sonarr_api_key
+  host: !secret sonarr_ip
+  port: 8989
+  urlbase: /sonarr
+  monitored_conditions:
+    - upcoming
+    - queue
+- platform: radarr
+  api_key: !secret radarr_api_key
+  host: !secret radarr_ip
+  port: 7878
+  urlbase: /radarr
+  monitored_conditions:
+    - upcoming
+- platform: crimereports
+  name: home
+  radius: 300
+- platform: etherscan
+  address: '0x6fb7304431207f70c67f1674080d08345c218bc4'
+- platform: coinmarketcap
+  currency: ethereum
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+- platform: fedex
+  username: !secret fedex_user
+  password: !secret fedex_password

@@ -1,0 +1,10 @@
+speech:
+  type: plaintext
+  text: >
+    Ethereum is currently valued at ${{ states("sensor.ethereum") }} of which you have {{ states("sensor.ethereum_balance") | round(5) }} Ethereum.
+card:
+  type: simple
+  title: Ethereum Price
+  content: >
+    Ethereum Price: ${{ states("sensor.ethereum")}}
+    Ethereum Balance: ${{ states("sensor.ethereum_balance")}}

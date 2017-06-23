@@ -1,0 +1,109 @@
+- action:
+  - alias: Set AC to away
+    data:
+      away_mode: true
+      entity_id: climate.home
+    service: climate.set_away_mode
+  alias: Set AC to Away if work phone isn't home
+  id: '1497578997448'
+  trigger:
+  - entity_id: device_tracker.dustinsworkiphone
+    from: home
+    platform: state
+    to: not_home
+- action:
+  - alias: Disable away mode
+    data:
+      away_mode: true
+      entity_id: climate.home
+    service: climate.set_away_mode
+  alias: Set AC to home when work phone arrives home
+  id: '1497579169686'
+  trigger:
+  - entity_id: device_tracker.dustinsworkiphone
+    from: not_home
+    platform: state
+    to: home
+- action:
+  - alias: Pause
+    data:
+      entity_id: media_player.bedroom
+    service: media_player.media_pause
+  alias: Pause playing media when bedroom sensor no longer detects motion
+  id: '1497592616473'
+  trigger:
+  - entity_id: binary_sensor.bedroom_occupancy
+    from: 'on'
+    platform: state
+    to: 'off'
+- action:
+  - alias: Lights
+    data:
+      entity_id:
+      - light.office
+      - light.recreation_room
+      - light.bedroom
+      - light.patio
+      transition: 60
+    service: light.turn_off
+  - alias: Stop Media playback
+    data:
+      entity_id:
+      - media_player.bedroom
+      - media_player.living_room
+      - media_player.office
+      - media_player.plex_8b0cb545_47a4_4f17_9f0d_1f3d971894d2
+      - media_player.plex_q004e1csxp06ok5v4ptdtpgb
+      - media_player.plex_qew81djc192hn17cgyl23xrd
+      - media_player.spotify
+    service: media_player.media_stop
+  alias: Shutdown everything when night_mode is activated
+  id: '1497771069531'
+  trigger:
+  - entity_id: input_boolean.night_mode
+    from: 'off'
+    platform: state
+    to: 'on'
+- action:
+  - alias: Office Lights
+    data:
+      entity_id:
+      - light.office
+      transition: 60
+    service: light.turn_on
+  - alias: Recreation room Lights
+    data:
+      group_name: "Recreation room"
+      scene_name: "Energize"
+    service: light.hue_activate_scene
+  trigger:
+    platform: time
+    at: '09:00:00'
+  condition:
+    condition: state
+    entity_id: 'binary_sensor.workday_sensor'
+    state: 'on'
+  alias: Turn on Lights at 9AM on work days
+  id: '1497578997449'
+- action:
+  - alias: Office Lights
+    data:
+      entity_id:
+      - light.office
+      transition: 60
+    service: light.turn_on
+  - alias: Recreation room Lights
+    data:
+      entity_id:
+      - light.recreation_room
+      transition: 60
+    service: light.turn_off
+  trigger:
+    platform: time
+    at: '12:00:00'
+  condition:
+    condition: state
+    entity_id: 'binary_sensor.workday_sensor'
+    state: 'on'
+  alias: Turn on Lights at Noon on work days
+  id: '149757899874'

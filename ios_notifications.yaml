@@ -1,0 +1,4 @@
+platform: group
+services:
+  - service: personal_phone
+  - service: dustins_work_iphone
